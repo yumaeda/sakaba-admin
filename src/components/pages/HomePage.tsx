@@ -3,6 +3,7 @@
  */
 import Footer from '../Footer'
 import * as React from 'react'
+import { AuthenticationDetails, CognitoUserPool, CognitoUser } from 'amazon-cognito-identity-js'
 
 const HomePage: React.FC = () => {
     const [userName, setUserName] = React.useState<string>('')
@@ -18,7 +19,30 @@ const HomePage: React.FC = () => {
 
     const handleSubmit = (event: React.FormEvent) => {
         event.preventDefault()
-        alert(`UserName: ${userName}, Password: ${password}`)
+        const authenticationDetails = new AuthenticationDetails({
+            Username: userName,
+            Password: password
+        })
+        const userPool = new CognitoUserPool({
+            UserPoolId : 'XXXX',
+            ClientId : 'YYYY'
+        })
+        const cognitoUser = new CognitoUser({
+            Username: userName,
+            Pool: userPool
+        })
+
+        cognitoUser.authenticateUser(authenticationDetails, {
+            onSuccess: (result) => {
+                alert('access token + ' + result.getAccessToken().getJwtToken())
+                window.location.href = 'index.html'
+            },
+     
+            onFailure: (err) => {
+                console.dir(err)
+                alert(JSON.stringify(err))
+            }
+        })
     }
 
     return (
