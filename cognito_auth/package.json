@@ -1,0 +1,9 @@
+{
+  "name": "cognito-auth",
+  "version": "1.0.0",
+  "description": "Lambda for Cognito Authentication",
+  "dependencies": {
+    "cognito-at-edge": "^1.0.0"
+  }
+}
+
