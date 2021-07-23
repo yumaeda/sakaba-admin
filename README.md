@@ -33,9 +33,9 @@ aws cognito-idp admin-set-user-password --user-pool-id "USER_POOL_ID"  --usernam
 ## Set user's gender
 ```sh
 sampleFrontend4Cognito % aws cognito-idp admin-update-user-attributes \
-> --user-pool-id "USER_POOL_ID" \
-> --username "USER_NAME" \
-> --user-attributes Name="gender",Value="male"
+--user-pool-id "USER_POOL_ID" \
+--username "USER_NAME" \
+--user-attributes Name="gender",Value="male"
 ```
 
 ## Set user's given name
