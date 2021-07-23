@@ -1,12 +1,24 @@
 # cognito-demo
 ## Setup
+### Install npm packages
 ```sh
 npm install
 ```
+### Create .env file
+```sh
+USER_POOL_ID=xxx
+CLIENT_ID=xxx
+```
+
+&nbsp;
+
 ## Build
 ```sh
 npm run build
 ```
+
+&nbsp;
+
 ## Run locally
 ```sh
 npm start

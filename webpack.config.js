@@ -1,4 +1,5 @@
 const path = require('path')
+const dotenv = require('dotenv-webpack')
 
 module.exports = {
   mode: 'development',
@@ -20,6 +21,9 @@ module.exports = {
   devServer: {
       historyApiFallback: true
   },
+  plugins: [
+    new dotenv()
+  ],
   output: {
       filename: 'bundle.js',
       path: path.resolve(__dirname, 'dist')

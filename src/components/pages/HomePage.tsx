@@ -24,8 +24,8 @@ const HomePage: React.FC = () => {
             Password: password
         })
         const userPool = new CognitoUserPool({
-            UserPoolId : 'XXXX',
-            ClientId : 'YYYY'
+            UserPoolId : process.env.USER_POOL_ID ?? '',
+            ClientId : process.env.CLIENT_ID ?? ''
         })
         const cognitoUser = new CognitoUser({
             Username: userName,
