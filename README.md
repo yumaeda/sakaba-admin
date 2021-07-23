@@ -54,10 +54,6 @@ aws cognito-idp admin-update-user-attributes \
 --user-attributes Name="family_name",Value="Maeda" 
 ```
 
-## URL
-- http://kojinten.jp.s3-website-ap-northeast-1.amazonaws.com/
-
-
 ## References
 - https://medium.com/@jith/a-practical-introduction-to-aws-lambda-api-gateway-cognito-dynamo-db-s3-hosting-and-60002b22947a
 - https://qiita.com/nabezokodaikon/items/deea360304929e8bd42a
