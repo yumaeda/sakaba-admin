@@ -3,22 +3,19 @@
  */
 import Footer from '../Footer'
 import { getCognitoUser } from '../../utils/CognitoUtility'
+import { userNameKey } from '../../utils/LocalStorageKeys'
 import { CognitoUser } from 'amazon-cognito-identity-js'
 import * as React from 'react'
 
-interface Props {
-    userName: string
-    isSignedIn: boolean
-}
-
-const SignOutPage: React.FC<Props> = props => {
+const SignOutPage: React.FC = () => {
     const [message, setMessage] = React.useState('')
-    const {userName, isSignedIn} = props
 
     React.useEffect(() => {
-        if (isSignedIn) {
+        const userName = localStorage.getItem(userNameKey)
+        if (userName) {
             const cognitoUser: CognitoUser = getCognitoUser(userName)
             cognitoUser.signOut(() => setMessage(`${userName} has signed out!!`))
+            localStorage.removeItem(userNameKey)
         } else {
             setMessage('User is not signed in!!')
         }

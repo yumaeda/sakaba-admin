@@ -3,6 +3,7 @@
  */
 import Footer from '../Footer'
 import { getCognitoUser } from '../../utils/CognitoUtility'
+import { userNameKey } from '../../utils/LocalStorageKeys'
 import { AuthenticationDetails, CognitoAccessToken } from 'amazon-cognito-identity-js'
 import * as React from 'react'
 import { Link } from 'react-router-dom'
@@ -29,6 +30,7 @@ const SignInPage: React.FC = () => {
                 onSuccess: (result) => {
                     setAccessToken(result.getAccessToken())
                     setSignedIn(true)
+                    localStorage.setItem(userNameKey, userName)
                 },
                 onFailure: (err) => {
                     console.dir(err)
