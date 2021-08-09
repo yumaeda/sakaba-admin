@@ -1,3 +1,4 @@
+const accessTokenKey = 'accessToken'
 const userNameKey = 'user'
 
-export { userNameKey }
+export { accessTokenKey, userNameKey }

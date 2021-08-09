@@ -3,14 +3,14 @@
  */
 import Footer from '../Footer'
 import { getCognitoUser } from '../../utils/CognitoUtility'
-import { userNameKey } from '../../utils/LocalStorageKeys'
-import { AuthenticationDetails, CognitoAccessToken } from 'amazon-cognito-identity-js'
+import { accessTokenKey, userNameKey } from '../../utils/LocalStorageKeys'
+import { AuthenticationDetails } from 'amazon-cognito-identity-js'
 import * as React from 'react'
-import { Link } from 'react-router-dom'
+import { useHistory } from 'react-router-dom'
 
 const SignInPage: React.FC = () => {
-    const [SignedIn, setSignedIn] = React.useState<boolean>(false)
-    const [accessToken, setAccessToken] = React.useState<CognitoAccessToken>()
+    const history = useHistory()
+    const { from } = { from: { pathname: '/' } }
     const [userName, setUserName] = React.useState<string>('')
     const [password, setPassword] = React.useState<string>('')
 
@@ -28,9 +28,9 @@ const SignInPage: React.FC = () => {
             new AuthenticationDetails({ Username: userName, Password: password }),
             {
                 onSuccess: (result) => {
-                    setAccessToken(result.getAccessToken())
-                    setSignedIn(true)
+                    localStorage.setItem(accessTokenKey, result.getAccessToken().getJwtToken())
                     localStorage.setItem(userNameKey, userName)
+                    history.replace(from)
                 },
                 onFailure: (err) => {
                     console.dir(err)
@@ -46,27 +46,15 @@ const SignInPage: React.FC = () => {
             </header>
             <div>
             {
-                SignedIn ? (
-                    <div>
-                        <label>User Name:</label>
-                        <span>{userName}</span><br />
-                        <Link to={'/signout'}>Sign Out</Link>
-                    </div>
-                ) : (
-                    <form onSubmit={handleSubmit}>
-                        <label>Username</label>
-                        <input type="text" value={userName} onChange={handleUserNameChange} /><br />
-                        <label>Password</label>
-                        <input type="password" value={password} onChange={handlePasswordChange} />
-                        <input type='submit' value="Sign In" />
-                    </form>
-                )
+                <form onSubmit={handleSubmit}>
+                    <label>Username</label>
+                    <input type="text" value={userName} onChange={handleUserNameChange} /><br />
+                    <label>Password</label>
+                    <input type="password" value={password} onChange={handlePasswordChange} />
+                    <input type='submit' value="Sign In" />
+                </form>
             }
             </div> 
-            <div>
-                <label>JWT Token:</label>
-                <p>{accessToken?.getJwtToken()}</p>
-            </div>
             <Footer />
         </>
     )
