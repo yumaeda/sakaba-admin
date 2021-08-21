@@ -6,11 +6,15 @@ import { getCognitoUser } from '../../utils/CognitoUtility'
 import { accessTokenKey, userNameKey } from '../../utils/LocalStorageKeys'
 import { AuthenticationDetails } from 'amazon-cognito-identity-js'
 import * as React from 'react'
-import { useHistory } from 'react-router-dom'
+import { Redirect, useLocation } from 'react-router-dom'
+
+interface LocationState {
+    from: { pathname: string }
+}
 
 const SignInPage: React.FC = () => {
-    const history = useHistory()
-    const { from } = { from: { pathname: '/' } }
+    const [redirectToReferrer, setRedirectToReferrer] = React.useState<boolean>(false)
+    const { state } = useLocation<LocationState>()
     const [userName, setUserName] = React.useState<string>('')
     const [password, setPassword] = React.useState<string>('')
 
@@ -30,13 +34,17 @@ const SignInPage: React.FC = () => {
                 onSuccess: (result) => {
                     localStorage.setItem(accessTokenKey, result.getAccessToken().getJwtToken())
                     localStorage.setItem(userNameKey, userName)
-                    history.replace(from)
+                    setRedirectToReferrer(true)
                 },
                 onFailure: (err) => {
                     console.dir(err)
                 }
             }
         )
+    }
+
+    if (redirectToReferrer === true) {
+        return <Redirect to={state?.from || '/'} />
     }
 
     return (

@@ -1,4 +1,4 @@
-import { CognitoUserPool, CognitoUser } from 'amazon-cognito-identity-js'
+import { CognitoUser, CognitoUserPool } from 'amazon-cognito-identity-js'
 
 const getUserPool = (): CognitoUserPool => {
     return new CognitoUserPool({
