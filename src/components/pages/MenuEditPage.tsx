@@ -6,43 +6,26 @@ import Footer from '../Footer'
 import * as React from 'react'
 
 const MenuEditPage: React.FC = () => {
-    const menus: Menu[] = [
-        {
-            id: 'xxxxxx1',
-            name: 'Gin & Tonic',
-            name_jpn: 'ジントニック（ジン各種あります）',
-            category: 1,
-            sub_category: 1,
-            region: 0,
-            price: 650,
-            is_min_price: 1
-        },
-        {
-            id: 'xxxxxx2',
-            name: 'Negroni',
-            name_jpn: 'ネグローニ',
-            category: 1,
-            sub_category: 1,
-            region: 0,
-            price: 800,
-            is_min_price: 0
-        },
-        {
-            id: 'xxxxxx3',
-            name: 'WhiteLady',
-            name_jpn: 'ホワイトレディ',
-            category: 1,
-            sub_category: 1,
-            region: 0,
-            price: 900,
-            is_min_price: 0
-        }
-    ]
-
+    const [menus, setMenus] = React.useState<Menu[]>()
     const [menuId, setMenuId] = React.useState<string>('')
 
+    React.useEffect(() => {
+        fetch('https://api.tokyo-takeout.com/menus', {
+            headers: { 'X-Api-Key': process.env.API_KEY ?? '' }
+        })
+        .then(res => res.json())
+        .then(
+            (data) => {
+                setMenus(JSON.parse(data.body))
+            },
+            (error: Error) => {
+                console.dir(error)
+            }
+        )
+    }, [])
+
     const handleFocus = (event: React.FormEvent<HTMLTableRowElement>) => {
-        setMenuId(event.currentTarget.getAttribute('id') || '')
+        setMenuId(event.currentTarget.getAttribute('key') || '')
     }
 
     const handleBlur = (event: React.FormEvent<HTMLInputElement>) => {
@@ -72,15 +55,15 @@ const MenuEditPage: React.FC = () => {
                     </thead>
                     <tbody>
                     {
-                        menus.map((menu: Menu) => (
-                            <tr onFocus={handleFocus} id={menu.id}>
-                                <td><input type="number" name="category" value={menu.category} onBlur={handleBlur} /></td>
-                                <td><input type="number" name="sub_category" value={menu.sub_category} onBlur={handleBlur} /></td>
-                                <td><input type="number" name="region" value={menu.region} onBlur={handleBlur} /></td>
-                                <td><input type="text" name="name" value={menu.name} onBlur={handleBlur} /></td>
-                                <td><input type="text" name="name_jpn" value={menu.name_jpn} onBlur={handleBlur} /></td>
-                                <td><input type="number" name="price" value={menu.price} onBlur={handleBlur} /></td>
-                                <td><input type="number" name="is_min_price" value={menu.is_min_price} onBlur={handleBlur} /></td>
+                        menus?.map((menu: Menu, index: number) => (
+                            <tr onFocus={handleFocus} key={index/*window.atob(menu.id)*/}>
+                                <td><input type="number" name="category" defaultValue={menu.category} onBlur={handleBlur} /></td>
+                                <td><input type="number" name="sub_category" defaultValue={menu.sub_category} onBlur={handleBlur} /></td>
+                                <td><input type="number" name="region" defaultValue={menu.region} onBlur={handleBlur} /></td>
+                                <td><input type="text" name="name" defaultValue={menu.name} onBlur={handleBlur} /></td>
+                                <td><input type="text" name="name_jpn" defaultValue={menu.name_jpn} onBlur={handleBlur} /></td>
+                                <td><input type="number" name="price" defaultValue={menu.price} onBlur={handleBlur} /></td>
+                                <td><input type="number" name="is_min_price" defaultValue={menu.is_min_price} onBlur={handleBlur} /></td>
                             </tr>
                         ))
                     }
