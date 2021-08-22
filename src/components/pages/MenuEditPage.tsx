@@ -25,7 +25,7 @@ const MenuEditPage: React.FC = () => {
     }, [])
 
     const handleFocus = (event: React.FormEvent<HTMLTableRowElement>) => {
-        setMenuId(event.currentTarget.getAttribute('key') || '')
+        setMenuId(event.currentTarget.getAttribute('id') || '')
     }
 
     const handleBlur = (event: React.FormEvent<HTMLInputElement>) => {
@@ -55,8 +55,8 @@ const MenuEditPage: React.FC = () => {
                     </thead>
                     <tbody>
                     {
-                        menus?.map((menu: Menu, index: number) => (
-                            <tr onFocus={handleFocus} key={index/*window.atob(menu.id)*/}>
+                        menus?.map((menu: Menu) => (
+                            <tr onFocus={handleFocus} key={window.atob(menu.id)} id={window.atob(menu.id)}>
                                 <td><input type="number" name="category" defaultValue={menu.category} onBlur={handleBlur} /></td>
                                 <td><input type="number" name="sub_category" defaultValue={menu.sub_category} onBlur={handleBlur} /></td>
                                 <td><input type="number" name="region" defaultValue={menu.region} onBlur={handleBlur} /></td>
