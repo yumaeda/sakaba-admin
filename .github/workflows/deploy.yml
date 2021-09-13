@@ -34,6 +34,7 @@ jobs:
       run: npm run build --if-present
     - name: Deploy to S3
       run: |
+         aws s3 cp ".env" "s3://admin.sakaba.link/.env"
           aws s3 cp "dist/bundle.js" "s3://admin.sakaba.link/dist/bundle.js"
           aws s3 cp "index.html" "s3://admin.sakaba.link/index.html"
           aws s3 cp "index.min.css" "s3://admin.sakaba.link/index.min.css"
