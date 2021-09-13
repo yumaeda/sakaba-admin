@@ -34,4 +34,4 @@ jobs:
           aws s3 cp "index.min.css" "s3://admin.sakaba.link/index.min.css"
           aws s3 cp "favicon.ico" "s3://admin.sakaba.link/favicon.ico"
     - name: CloudFront Invalidation
-      run: aws cloudfront create-invalidation --distribution-id ${{ secrets.CF_DISTRIBUTION_ID2 }} --paths "/*"
+      run: aws cloudfront create-invalidation --distribution-id ${{ secrets.CF_DISTRIBUTION_ID }} --paths "/*"
