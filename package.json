@@ -1,11 +1,11 @@
 {
-  "name": "cognito-demo",
+  "name": "sakaba-admin",
   "version": "1.0.0",
-  "description": "Demo Repository for AWS Cognito",
+  "description": "Admin Repository for sakaba.link",
   "main": "index.js",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/yumaeda/cognito-demo.git"
+    "url": "git+https://github.com/yumaeda/sakaba-admin.git"
   },
   "scripts": {
     "build": "webpack --progress --profile",
@@ -16,9 +16,9 @@
   ],
   "author": "Yukitaka Maeda",
   "bugs": {
-    "url": "https://github.com/yumaeda/cognito-demo/issues"
+    "url": "https://github.com/yumaeda/sakaba-admin/issues"
   },
-  "homepage": "https://github.com/yumaeda/cognito-demo#readme",
+  "homepage": "https://github.com/yumaeda/sakaba-admin#readme",
   "dependencies": {
     "amazon-cognito-identity-js": "^5.0.5",
     "react": "^17.0.2",
