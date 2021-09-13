@@ -29,9 +29,9 @@ const MenuEditPage: React.FC = () => {
     }
 
     const handleBlur = (event: React.FormEvent<HTMLInputElement>) => {
-        alert(`Menu ID: ${menuId}`)
-        alert(`Column Name: ${event.currentTarget.getAttribute('name')}`)
-        alert(`Column Value: ${event.currentTarget.value}`)
+        console.log(`Blur: ${menuId}`)
+        console.log(`Column Name: ${event.currentTarget.getAttribute('name')}`)
+        console.log(`Column Value: ${event.currentTarget.value}`)
     }
 
     return (
