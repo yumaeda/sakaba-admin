@@ -29,9 +29,23 @@ const MenuEditPage: React.FC = () => {
     }
 
     const handleBlur = (event: React.FormEvent<HTMLInputElement>) => {
-        console.log(`Blur: ${menuId}`)
-        console.log(`Column Name: ${event.currentTarget.getAttribute('name')}`)
-        console.log(`Column Value: ${event.currentTarget.value}`)
+        const column = event.currentTarget.getAttribute('name')
+        const value = event.currentTarget.value
+        const postOptions = {
+            method: 'PUT',
+            headers: { 'Content-Type': 'application/json', 'X-Api-Key': process.env.API_KEY ?? '' },
+            body: JSON.stringify(
+                {
+                    'id': menuId,
+                    'column': column,
+                    'value': value,
+                })
+        }
+        fetch('https://api.tokyo-takeout.com/menu', postOptions)
+            .then(res => res.json())
+            .then(data => {
+                console.dir(data)
+            })
     }
 
     return (
