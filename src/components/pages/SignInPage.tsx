@@ -3,7 +3,7 @@
  */
 import Footer from '../Footer'
 import { getCognitoUser } from '../../utils/CognitoUtility'
-import { accessTokenKey, userNameKey } from '../../utils/LocalStorageKeys'
+import { accessTokenKey, idTokenKey, userNameKey } from '../../utils/LocalStorageKeys'
 import { AuthenticationDetails } from 'amazon-cognito-identity-js'
 import * as React from 'react'
 import { Redirect, useLocation } from 'react-router-dom'
@@ -32,6 +32,7 @@ const SignInPage: React.FC = () => {
             new AuthenticationDetails({ Username: userName, Password: password }),
             {
                 onSuccess: (result) => {
+                    localStorage.setItem(idTokenKey, result.getIdToken().getJwtToken())
                     localStorage.setItem(accessTokenKey, result.getAccessToken().getJwtToken())
                     localStorage.setItem(userNameKey, userName)
                     setRedirectToReferrer(true)

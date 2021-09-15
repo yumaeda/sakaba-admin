@@ -2,6 +2,7 @@
  * @author Yukitaka Maeda [yumaeda@gmail.com]
  */
 import Menu from '../../interfaces/Menu'
+import { idTokenKey } from '../../utils/LocalStorageKeys'
 import Footer from '../Footer'
 import * as React from 'react'
 
@@ -11,7 +12,7 @@ const MenuEditPage: React.FC = () => {
 
     React.useEffect(() => {
         fetch('https://api.tokyo-takeout.com/menus', {
-            headers: { 'X-Api-Key': process.env.API_KEY ?? '' }
+            headers: {}
         })
         .then(res => res.json())
         .then(
@@ -33,7 +34,10 @@ const MenuEditPage: React.FC = () => {
         const value = event.currentTarget.value
         const postOptions = {
             method: 'PUT',
-            headers: { 'Content-Type': 'application/json', 'X-Api-Key': process.env.API_KEY ?? '' },
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': localStorage.getItem(idTokenKey) ?? ''
+            },
             body: JSON.stringify(
                 {
                     'id': menuId,
