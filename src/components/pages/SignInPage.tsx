@@ -1,7 +1,6 @@
 /**
  * @author Yukitaka Maeda [yumaeda@gmail.com]
  */
-import Footer from '../Footer'
 import { getCognitoUser } from '../../utils/CognitoUtility'
 import { accessTokenKey, idTokenKey, userNameKey } from '../../utils/LocalStorageKeys'
 import { AuthenticationDetails } from 'amazon-cognito-identity-js'
