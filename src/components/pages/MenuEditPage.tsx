@@ -10,7 +10,7 @@ const MenuEditPage: React.FC = () => {
     const [menuId, setMenuId] = React.useState<string>('')
 
     React.useEffect(() => {
-        fetch('https://api.tokyo-takeout.com/menus', {
+        fetch('https://api.sakaba.link/menus', {
             headers: {}
         })
         .then(res => res.json())
@@ -44,7 +44,7 @@ const MenuEditPage: React.FC = () => {
                     'value': value,
                 })
         }
-        fetch('https://api.tokyo-takeout.com/menu', postOptions)
+        fetch('https://api.sakaba.link/menu', postOptions)
             .then(res => res.json())
             .then(data => {
                 console.dir(data)
