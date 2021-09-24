@@ -57,7 +57,7 @@ const SignInPage: React.FC = () => {
                 <form onSubmit={handleSubmit}>
                     <input className="input" type="text" value={userName} onChange={handleUserNameChange} placeholder="ログインID" /><br />
                     <input className="input" type="password" value={password} onChange={handlePasswordChange} placeholder="パスワード" /><br />
-                    <input className="button" type='submit' value="Sign In" />
+                    <input className="button" type='submit' value="サインイン" />
                 </form>
             }
             </div> 

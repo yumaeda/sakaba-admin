@@ -28,6 +28,9 @@
 }
 
 .button {
-    width: 180px;
+    width: 2000px;
     padding: 10px;
+    -webkit-appearance: none;
+    background-color: darkred;
+    color: whitesmoke;
 }
