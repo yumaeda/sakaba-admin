@@ -7,14 +7,16 @@
 .header {
     color: white;
     background-color: black;
+    text-align: center;
     margin: 0;
+    padding: 20px 0;
+}
+
+.contents {
+    text-align: center;
+    padding: 40px;
 }
 
 .header-title {
     margin: 0;
-}
-
-.footer {
-    position: absolute;
-    bottom: 0;
 }

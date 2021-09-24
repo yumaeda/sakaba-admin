@@ -3,7 +3,6 @@
  */
 import Menu from '../../interfaces/Menu'
 import { idTokenKey } from '../../utils/LocalStorageKeys'
-import Footer from '../Footer'
 import * as React from 'react'
 
 const MenuEditPage: React.FC = () => {
@@ -89,7 +88,6 @@ const MenuEditPage: React.FC = () => {
                 </table>
             }
             </div> 
-            <Footer />
         </>
     )
 }

@@ -1,7 +1,6 @@
 /**
  * @author Yukitaka Maeda [yumaeda@gmail.com]
  */
-import Footer from '../Footer'
 import * as React from 'react'
 import { Link } from 'react-router-dom'
 
@@ -17,7 +16,6 @@ const HomePage: React.FC = () => {
                     <Link to="/menu-edit">メニューの編集</Link>
                 </div>
             </div> 
-            <Footer />
         </>
     )
 }

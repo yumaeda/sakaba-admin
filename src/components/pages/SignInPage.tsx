@@ -56,15 +56,12 @@ const SignInPage: React.FC = () => {
             <div>
             {
                 <form onSubmit={handleSubmit}>
-                    <label>Username</label>
-                    <input type="text" value={userName} onChange={handleUserNameChange} /><br />
-                    <label>Password</label>
-                    <input type="password" value={password} onChange={handlePasswordChange} />
+                    <input type="text" value={userName} onChange={handleUserNameChange} placeholder="ログインID" /><br />
+                    <input type="password" value={password} onChange={handlePasswordChange} placeholder="パスワード" /><br />
                     <input type='submit' value="Sign In" />
                 </form>
             }
             </div> 
-            <Footer />
         </>
     )
 }
