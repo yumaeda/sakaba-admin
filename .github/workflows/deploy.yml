@@ -23,7 +23,6 @@ jobs:
       run: |
         echo "USER_POOL_ID=${{ secrets.USER_POOL_ID }}" > "./.env"
         echo "CLIENT_ID=${{ secrets.CLIENT_ID }}" >> "./.env"
-        echo "API_KEY=${{ secrets.API_KEY }}" >> "./.env"
     - name: Use Node.js ${{ matrix.node-version }}
       uses: actions/setup-node@v1
       with:
