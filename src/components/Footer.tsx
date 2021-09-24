@@ -7,7 +7,7 @@ const Footer: React.FC = () => {
     return (
 
     <footer className="footer">
-        <span>&copy; 2021 東京テイクアウト</span>
+        <span>&copy; 2021 酒場リンク</span>
     </footer>
     )
 }
