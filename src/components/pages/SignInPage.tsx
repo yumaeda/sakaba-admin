@@ -52,12 +52,12 @@ const SignInPage: React.FC = () => {
             <header className="header">
                 <h1 className="header-title">{`Sign In`}</h1>
             </header>
-            <div>
+            <div className="contents">
             {
                 <form onSubmit={handleSubmit}>
-                    <input type="text" value={userName} onChange={handleUserNameChange} placeholder="ログインID" /><br />
-                    <input type="password" value={password} onChange={handlePasswordChange} placeholder="パスワード" /><br />
-                    <input type='submit' value="Sign In" />
+                    <input className="input" type="text" value={userName} onChange={handleUserNameChange} placeholder="ログインID" /><br />
+                    <input className="input" type="password" value={password} onChange={handlePasswordChange} placeholder="パスワード" /><br />
+                    <input className="button" type='submit' value="Sign In" />
                 </form>
             }
             </div> 
