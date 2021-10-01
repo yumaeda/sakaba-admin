@@ -25,7 +25,7 @@ module.exports = {
     new dotenv()
   ],
   output: {
-      filename: 'bundle.js',
-      path: path.resolve(__dirname, 'dist')
+      filename: 'index.min.js',
+      path: __dirname
   }
 }

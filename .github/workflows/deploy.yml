@@ -34,7 +34,7 @@ jobs:
     - name: Deploy to S3
       run: |
           aws s3 cp "./.env" "s3://admin.sakaba.link/.env"
-          aws s3 cp "bundle.js" "s3://admin.sakaba.link/bundle.js"
+          aws s3 cp "index.min.js" "s3://admin.sakaba.link/index.min.js"
           aws s3 cp "index.html" "s3://admin.sakaba.link/index.html"
           aws s3 cp "index.min.css" "s3://admin.sakaba.link/index.min.css"
           aws s3 cp "favicon.ico" "s3://admin.sakaba.link/favicon.ico"
