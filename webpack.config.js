@@ -19,7 +19,13 @@ module.exports = {
       extensions: [ '.ts', '.tsx', '.js', '.json' ]
   },
   devServer: {
-      historyApiFallback: true
+      compress: true,
+      historyApiFallback: true,
+      hot: true,
+      open: true,
+      static: {
+          directory: __dirname
+      }
   },
   plugins: [
     new dotenv()
