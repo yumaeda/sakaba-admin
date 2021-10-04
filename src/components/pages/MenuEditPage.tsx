@@ -89,8 +89,8 @@ const MenuEditPage: React.FC = () => {
                 <h1 className="header-title">{`メニュー管理`}</h1>
                 <input type="button" onClick={handleAddMenu} value="追加する" />
             </header>
-            <div>
-                <table>
+            <div className="contents">
+                <table className="menu-table">
                     <thead>
                         <tr>
                             <th>第1カテゴリー</th>
