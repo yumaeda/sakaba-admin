@@ -1,4 +1,5 @@
 export default interface Menu {
+    restaurant_id: string
     id: string
     name: string
     name_jpn: string

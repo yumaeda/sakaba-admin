@@ -4,9 +4,10 @@
 import Menu from '../../interfaces/Menu'
 import { idTokenKey } from '../../utils/LocalStorageKeys'
 import * as React from 'react'
+import { v4 as uuidv4 } from 'uuid'
 
 const MenuEditPage: React.FC = () => {
-    const [menus, setMenus] = React.useState<Menu[]>()
+    const [menus, setMenus] = React.useState<Menu[]>([])
     const [menuId, setMenuId] = React.useState<string>('')
 
     React.useEffect(() => {
@@ -23,6 +24,37 @@ const MenuEditPage: React.FC = () => {
             }
         )
     }, [])
+
+    const handleAddMenu = () => {
+        const restaurantId = '4be82d28-ce68-11eb-ba65-065a10bcba76'
+        let emptyMenu: Menu = {
+            id: uuidv4(),
+            restaurant_id: restaurantId,
+            category:  0,
+            sub_category:  0,
+            region: 0,
+            name: '',
+            name_jpn: '',
+            price:  0,
+            is_min_price: 0
+        }
+
+        const postOptions = {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': localStorage.getItem(idTokenKey) ?? ''
+            },
+            body: JSON.stringify(emptyMenu)
+        }
+        fetch('https://api.sakaba.link/menu', postOptions)
+            .then(res => res.json())
+            .then(data => {
+                emptyMenu.id = window.btoa(emptyMenu.id)
+                console.dir(data)
+                setMenus([emptyMenu, ...menus])
+            })
+    }
 
     const handleFocus = (event: React.FormEvent<HTMLTableRowElement>) => {
         setMenuId(event.currentTarget.getAttribute('id') || '')
@@ -54,10 +86,10 @@ const MenuEditPage: React.FC = () => {
     return (
         <>
             <header className="header">
-                <h1 className="header-title">{`メニューの編集`}</h1>
+                <h1 className="header-title">{`メニュー管理`}</h1>
+                <input type="button" onClick={handleAddMenu} value="追加する" />
             </header>
             <div>
-            {
                 <table>
                     <thead>
                         <tr>
@@ -86,7 +118,6 @@ const MenuEditPage: React.FC = () => {
                     }
                     </tbody>
                 </table>
-            }
             </div> 
         </>
     )
