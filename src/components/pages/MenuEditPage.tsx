@@ -9,6 +9,7 @@ import { v4 as uuidv4 } from 'uuid'
 const MenuEditPage: React.FC = () => {
     const [menus, setMenus] = React.useState<Menu[]>([])
     const [menuId, setMenuId] = React.useState<string>('')
+    const [menuIndex, setMenuIndex] = React.useState<number>(0)
 
     React.useEffect(() => {
         fetch('https://api.sakaba.link/menus', {
@@ -52,12 +53,34 @@ const MenuEditPage: React.FC = () => {
             .then(data => {
                 emptyMenu.id = window.btoa(emptyMenu.id)
                 console.dir(data)
-                setMenus([emptyMenu, ...menus])
+                setMenus([...menus, emptyMenu])
+            })
+    }
+
+    const handleDeleteMenu = () => {
+        const deleteOptions = {
+            method: 'DELETE',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': localStorage.getItem(idTokenKey) ?? ''
+            },
+            body: JSON.stringify({
+                'id': menuId
+            })
+        }
+        fetch('https://api.sakaba.link/menu', deleteOptions)
+            .then(res => res.json())
+            .then(data => {
+                console.dir(data)
+                let newMenus = [...menus]
+                newMenus.splice(menuIndex, 1)
+                setMenus(newMenus)
             })
     }
 
     const handleFocus = (event: React.FormEvent<HTMLTableRowElement>) => {
         setMenuId(event.currentTarget.getAttribute('id') || '')
+        setMenuIndex(Number(event.currentTarget.getAttribute('tabindex')) || 0)
     }
 
     const handleBlur = (event: React.FormEvent<HTMLInputElement>) => {
@@ -69,12 +92,11 @@ const MenuEditPage: React.FC = () => {
                 'Content-Type': 'application/json',
                 'Authorization': localStorage.getItem(idTokenKey) ?? ''
             },
-            body: JSON.stringify(
-                {
-                    'id': menuId,
-                    'column': column,
-                    'value': value,
-                })
+            body: JSON.stringify({
+                'id': menuId,
+                'column': column,
+                'value': value,
+            })
         }
         fetch('https://api.sakaba.link/menu', postOptions)
             .then(res => res.json())
@@ -104,8 +126,8 @@ const MenuEditPage: React.FC = () => {
                     </thead>
                     <tbody>
                     {
-                        menus?.map((menu: Menu) => (
-                            <tr onFocus={handleFocus} key={window.atob(menu.id)} id={window.atob(menu.id)}>
+                        menus?.map((menu: Menu, index: number) => (
+                            <tr onFocus={handleFocus} key={window.atob(menu.id)} id={window.atob(menu.id)} tabIndex={index}>
                                 <td><input type="number" name="category" defaultValue={menu.category} onBlur={handleBlur} /></td>
                                 <td><input type="number" name="sub_category" defaultValue={menu.sub_category} onBlur={handleBlur} /></td>
                                 <td><input type="number" name="region" defaultValue={menu.region} onBlur={handleBlur} /></td>
@@ -113,6 +135,7 @@ const MenuEditPage: React.FC = () => {
                                 <td><input type="text" name="name_jpn" defaultValue={menu.name_jpn} onBlur={handleBlur} /></td>
                                 <td><input type="number" name="price" defaultValue={menu.price} onBlur={handleBlur} /></td>
                                 <td><input type="number" name="is_min_price" defaultValue={menu.is_min_price} onBlur={handleBlur} /></td>
+                                <td><input type="button" onClick={handleDeleteMenu} value="削除" /></td>
                             </tr>
                         ))
                     }
