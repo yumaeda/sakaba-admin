@@ -3,6 +3,7 @@
  */
 import Menu from '../../interfaces/Menu'
 import { idTokenKey, userNameKey } from '../../utils/LocalStorageKeys'
+import restaurantIdHash from '../../utils/RestaurantIdHash'
 import * as React from 'react'
 import { v4 as uuidv4 } from 'uuid'
 
@@ -10,14 +11,11 @@ const MenuEditPage: React.FC = () => {
     const [menus, setMenus] = React.useState<Menu[]>([])
     const [menuId, setMenuId] = React.useState<string>('')
     const [menuIndex, setMenuIndex] = React.useState<number>(0)
-
-    const restaurantIdHash : { [key: string]: string } = {
-        'daruma': 'da04f5c9-ffb0-11ea-ba65-065a10bcba76',
-        'hshindo': '4be82d28-ce68-11eb-ba65-065a10bcba76'
-    }
+    const restaurantId = restaurantIdHash[localStorage.getItem(userNameKey) ?? '']
 
     React.useEffect(() => {
-        fetch('https://api.sakaba.link/menus', {
+        console.log(restaurantId)
+        fetch(`https://api.sakaba.link/menus?restaurant_id=${restaurantId}`, {
             headers: {}
         })
         .then(res => res.json())
@@ -32,8 +30,6 @@ const MenuEditPage: React.FC = () => {
     }, [])
 
     const handleAddMenu = () => {
-        const userName = localStorage.getItem(userNameKey) ?? ''
-        const restaurantId = restaurantIdHash[userName]
         let emptyMenu: Menu = {
             id: uuidv4(),
             restaurant_id: restaurantId,
