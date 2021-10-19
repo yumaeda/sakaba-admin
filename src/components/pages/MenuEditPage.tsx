@@ -48,8 +48,8 @@ const MenuEditPage: React.FC = () => {
         let emptyMenu: Menu = {
             id: uuidv4(),
             restaurant_id: restaurantId,
-            category:  0,
-            sub_category:  0,
+            category: 1,
+            sub_category:  9,
             region: 0,
             name: '',
             name_jpn: '',
@@ -117,6 +117,33 @@ const MenuEditPage: React.FC = () => {
             .then(res => res.json())
             .then(data => {
                 console.dir(data)
+                let newMenu = {
+                    ...menus[menuIndex],
+                }
+                if (column == 'category') {
+                    newMenu = {
+                        ...newMenu,
+                        category: Number(value),
+                        sub_category: 0,
+                        region: 0
+                    }
+                }
+                if (column == 'sub_category') {
+                    newMenu = {
+                        ...newMenu,
+                        sub_category: Number(value),
+                        region: 0
+                    }
+                }
+                if (column == 'region') {
+                    newMenu = {
+                        ...newMenu,
+                        region: Number(value)
+                    }
+                }
+                let newMenus = [...menus]
+                newMenus.splice(menuIndex, 1)
+                setMenus([...newMenus, newMenu])
             })
     }
 
