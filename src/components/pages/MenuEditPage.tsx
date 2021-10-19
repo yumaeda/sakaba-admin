@@ -1,20 +1,35 @@
 /**
  * @author Yukitaka Maeda [yumaeda@gmail.com]
  */
+import Category from '../../interfaces/Category'
 import Menu from '../../interfaces/Menu'
+import CategoryDropDown from '../CategoryDropdown'
 import { idTokenKey, userNameKey } from '../../utils/LocalStorageKeys'
 import restaurantIdHash from '../../utils/RestaurantIdHash'
 import * as React from 'react'
 import { v4 as uuidv4 } from 'uuid'
 
 const MenuEditPage: React.FC = () => {
+    const [categories, setCategories] = React.useState<Category[]>([])
     const [menus, setMenus] = React.useState<Menu[]>([])
     const [menuId, setMenuId] = React.useState<string>('')
     const [menuIndex, setMenuIndex] = React.useState<number>(0)
     const restaurantId = restaurantIdHash[localStorage.getItem(userNameKey) ?? '']
 
     React.useEffect(() => {
-        console.log(restaurantId)
+        fetch(`https://api.sakaba.link/categories?restaurant_id=${restaurantId}`, {
+            headers: {}
+        })
+        .then(res => res.json())
+        .then(
+            (data) => {
+                setCategories(JSON.parse(data.body))
+            },
+            (error: Error) => {
+                console.dir(error)
+            }
+        )
+
         fetch(`https://api.sakaba.link/menus?restaurant_id=${restaurantId}`, {
             headers: {}
         })
@@ -85,9 +100,7 @@ const MenuEditPage: React.FC = () => {
         setMenuIndex(Number(event.currentTarget.getAttribute('tabindex')) || 0)
     }
 
-    const handleBlur = (event: React.FormEvent<HTMLInputElement>) => {
-        const column = event.currentTarget.getAttribute('name')
-        const value = event.currentTarget.value
+    const updateMenu = (column: string, value: string) => {
         const postOptions = {
             method: 'PUT',
             headers: {
@@ -96,8 +109,8 @@ const MenuEditPage: React.FC = () => {
             },
             body: JSON.stringify({
                 'id': menuId,
-                'column': column,
-                'value': value,
+                column,
+                value
             })
         }
         fetch('https://api.sakaba.link/menu', postOptions)
@@ -105,6 +118,20 @@ const MenuEditPage: React.FC = () => {
             .then(data => {
                 console.dir(data)
             })
+    }
+
+    const handleChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
+        updateMenu(
+            event.currentTarget.getAttribute('name') || '',
+            event.currentTarget.value
+        )
+    }
+
+    const handleBlur = (event: React.FormEvent<HTMLInputElement>) => {
+        updateMenu(
+            event.currentTarget.getAttribute('name') || '',
+            event.currentTarget.value
+        )
     }
 
     return (
@@ -130,7 +157,9 @@ const MenuEditPage: React.FC = () => {
                     {
                         menus?.map((menu: Menu, index: number) => (
                             <tr onFocus={handleFocus} key={window.atob(menu.id)} id={window.atob(menu.id)} tabIndex={index}>
-                                <td><input type="number" name="category" defaultValue={menu.category} onBlur={handleBlur} /></td>
+                                <td>
+                                    <CategoryDropDown categories={categories.filter((category: Category) => category.parent_id == null)} handleChange={handleChange} selectedValue={menu.category} />
+                                </td>
                                 <td><input type="number" name="sub_category" defaultValue={menu.sub_category} onBlur={handleBlur} /></td>
                                 <td><input type="number" name="region" defaultValue={menu.region} onBlur={handleBlur} /></td>
                                 <td><input type="text" name="name" defaultValue={menu.name} onBlur={handleBlur} /></td>
