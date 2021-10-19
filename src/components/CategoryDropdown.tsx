@@ -4,21 +4,22 @@ import Category from '../interfaces/Category'
 interface Props {
     categories: Category[]
     handleChange: React.ChangeEventHandler<HTMLSelectElement>
-    selectedValue: number
+    column: string
+    value: number
 }
 
 const CategoryDropDown: React.VFC<Props> = props => {
-    const { categories, handleChange, selectedValue } = props
+    const { categories, column, handleChange, value } = props
 
-    return (
-        <select name="category" defaultValue={selectedValue} onChange={handleChange}>
+    return (categories.length > 0) ? (
+        <select name={column} defaultValue={value} onChange={handleChange}>
             {
                 categories.map((category: Category, index: number) => (
-                    <option key={index} value={category.value}>{category.name}</option>
+                    <option key={index} value={category.id}>{category.name}</option>
                 ))
             }
         </select>
-    )
+    ) : <></>
 }
 
 export default CategoryDropDown

@@ -158,10 +158,14 @@ const MenuEditPage: React.FC = () => {
                         menus?.map((menu: Menu, index: number) => (
                             <tr onFocus={handleFocus} key={window.atob(menu.id)} id={window.atob(menu.id)} tabIndex={index}>
                                 <td>
-                                    <CategoryDropDown categories={categories.filter((category: Category) => category.parent_id == null)} handleChange={handleChange} selectedValue={menu.category} />
+                                    <CategoryDropDown categories={categories.filter((category: Category) => category.parent_id == null)} handleChange={handleChange} column="category" value={menu.category} />
                                 </td>
-                                <td><input type="number" name="sub_category" defaultValue={menu.sub_category} onBlur={handleBlur} /></td>
-                                <td><input type="number" name="region" defaultValue={menu.region} onBlur={handleBlur} /></td>
+                                <td>
+                                    <CategoryDropDown categories={categories.filter((category: Category) => category.parent_id == menu.category)} handleChange={handleChange} column="sub_category" value={menu.sub_category} />
+                                </td>
+                                <td>
+                                    <CategoryDropDown categories={categories.filter((category: Category) => category.parent_id == menu.sub_category)} handleChange={handleChange} column="region" value={menu.region} />
+                                </td>
                                 <td><input type="text" name="name" defaultValue={menu.name} onBlur={handleBlur} /></td>
                                 <td><input type="text" name="name_jpn" defaultValue={menu.name_jpn} onBlur={handleBlur} /></td>
                                 <td><input type="number" name="price" defaultValue={menu.price} onBlur={handleBlur} /></td>
