@@ -14,8 +14,8 @@ const CategoryDropDown: React.VFC<Props> = props => {
     return (categories.length > 0) ? (
         <select name={column} defaultValue={value} onChange={handleChange}>
             {
-                categories.map((category: Category, index: number) => (
-                    <option key={index} value={category.id}>{category.name}</option>
+                [{parent_id: null, id: 0, name:'未選択'}, ...categories].map((category: Category) => (
+                    <option value={category.id}>{category.name}</option>
                 ))
             }
         </select>
