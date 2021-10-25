@@ -142,8 +142,8 @@ const MenuEditPage: React.FC = () => {
                     }
                 }
                 let newMenus = [...menus]
-                newMenus.splice(menuIndex, 1)
-                setMenus([...newMenus, newMenu])
+                newMenus.splice(menuIndex, 1, newMenu)
+                setMenus(newMenus)
             })
     }
 
