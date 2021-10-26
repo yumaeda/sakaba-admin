@@ -48,8 +48,9 @@ const MenuEditPage: React.FC = () => {
         let emptyMenu: Menu = {
             id: uuidv4(),
             restaurant_id: restaurantId,
-            category: 1,
-            sub_category:  9,
+            sort_order: 0,
+            category: 0,
+            sub_category:  0,
             region: 0,
             name: '',
             name_jpn: '',
@@ -68,9 +69,10 @@ const MenuEditPage: React.FC = () => {
         fetch('https://api.sakaba.link/menu', postOptions)
             .then(res => res.json())
             .then(data => {
-                emptyMenu.id = window.btoa(emptyMenu.id)
                 console.dir(data)
-                setMenus([...menus, emptyMenu])
+                emptyMenu.id = window.btoa(emptyMenu.id)
+                setMenus([emptyMenu, ...menus])
+                window.scroll(0, 0)
             })
     }
 
@@ -171,6 +173,7 @@ const MenuEditPage: React.FC = () => {
                 <table className="menu-table">
                     <thead>
                         <tr>
+                            <th>表示順</th>
                             <th>第1カテゴリー</th>
                             <th>第2カテゴリー</th>
                             <th>第3カテゴリー</th>
@@ -178,12 +181,14 @@ const MenuEditPage: React.FC = () => {
                             <th>フリガナ</th>
                             <th>金額</th>
                             <th>最低金額</th>
+                            <th>オペレーション</th>
                         </tr>
                     </thead>
                     <tbody>
                     {
-                        menus?.map((menu: Menu, index: number) => (
-                            <tr onFocus={handleFocus} key={window.atob(menu.id)} id={window.atob(menu.id)} tabIndex={index}>
+                        menus?.map((menu: Menu) => (
+                            <tr onFocus={handleFocus} key={window.atob(menu.id)} id={window.atob(menu.id)} tabIndex={menu.sort_order}>
+                                <td><input type="number" name="sort_order" defaultValue={menu.sort_order} onBlur={handleBlur} className="number_field" /></td>
                                 <td>
                                     <CategoryDropDown categories={categories.filter((category: Category) => category.parent_id == null)} handleChange={handleChange} column="category" value={menu.category} />
                                 </td>
@@ -195,8 +200,8 @@ const MenuEditPage: React.FC = () => {
                                 </td>
                                 <td><input type="text" name="name" defaultValue={menu.name} onBlur={handleBlur} /></td>
                                 <td><input type="text" name="name_jpn" defaultValue={menu.name_jpn} onBlur={handleBlur} /></td>
-                                <td><input type="number" name="price" defaultValue={menu.price} onBlur={handleBlur} /></td>
-                                <td><input type="number" name="is_min_price" defaultValue={menu.is_min_price} onBlur={handleBlur} /></td>
+                                <td><input type="number" name="price" defaultValue={menu.price} onBlur={handleBlur} className="number_field" /></td>
+                                <td><input type="number" name="is_min_price" defaultValue={menu.is_min_price} onBlur={handleBlur} className="number_field" /></td>
                                 <td><input type="button" onClick={handleDeleteMenu} value="削除" /></td>
                             </tr>
                         ))
