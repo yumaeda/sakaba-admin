@@ -30,6 +30,12 @@
     margin-right: auto;
 }
 
+.input {
+    width: 180px;
+    margin-bottom: 20px;
+    padding: 10px;
+}
+
 .number_field {
     width: 50px;
     text-align: center;
