@@ -188,7 +188,7 @@ const MenuEditPage: React.FC = () => {
                     {
                         menus?.map((menu: Menu) => (
                             <tr onFocus={handleFocus} key={window.atob(menu.id)} id={window.atob(menu.id)} tabIndex={menu.sort_order}>
-                                <td><input type="number" name="sort_order" defaultValue={menu.sort_order} onBlur={handleBlur} className="number_field" /></td>
+                                <td><input type="number" name="sort_order" defaultValue={menu.sort_order} onChange={handleBlur} className="number_field" /></td>
                                 <td>
                                     <CategoryDropDown categories={categories.filter((category: Category) => category.parent_id == null)} handleChange={handleChange} column="category" value={menu.category} />
                                 </td>
