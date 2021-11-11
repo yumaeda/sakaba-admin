@@ -13,6 +13,7 @@ API_KEY=xxx
 ```
 ### Install npm packages
 ```sh
+export NODE_AUTH_TOKEN={GITHUB_PERSONAL_ACCESS_TOKEN}
 npm install
 ```
 ### Build

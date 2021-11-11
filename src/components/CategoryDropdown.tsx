@@ -1,5 +1,5 @@
 import * as React from 'react'
-import Category from '../interfaces/Category'
+import { Category } from '@yumaeda/sakaba-interface'
 
 interface Props {
     categories: Category[]
@@ -14,7 +14,7 @@ const CategoryDropDown: React.VFC<Props> = props => {
     return (categories.length > 0) ? (
         <select name={column} defaultValue={value} onChange={handleChange}>
             {
-                [{id: 0, parent_id: null, name: '未選択'}, ...categories].map((category: Category) => (
+                [{id: 0, name: '未選択'}, ...categories].map((category: Category) => (
                     <option value={category.id}>{category.name}</option>
                 ))
             }

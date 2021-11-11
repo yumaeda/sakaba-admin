@@ -1,13 +1,14 @@
 /**
  * @author Yukitaka Maeda [yumaeda@gmail.com]
  */
-import Category from '../../interfaces/Category'
+import * as React from 'react'
+import { Category } from '@yumaeda/sakaba-interface'
+import { v4 as uuidv4 } from 'uuid'
+import camelcaseKeys = require('camelcase-keys')
 import Menu from '../../interfaces/Menu'
 import CategoryDropDown from '../CategoryDropdown'
 import { idTokenKey, userNameKey } from '../../utils/LocalStorageKeys'
 import restaurantIdHash from '../../utils/RestaurantIdHash'
-import * as React from 'react'
-import { v4 as uuidv4 } from 'uuid'
 
 const MenuEditPage: React.FC = () => {
     const [categories, setCategories] = React.useState<Category[]>([])
@@ -23,7 +24,7 @@ const MenuEditPage: React.FC = () => {
         .then(res => res.json())
         .then(
             (data) => {
-                setCategories(JSON.parse(data.body))
+                setCategories(camelcaseKeys(JSON.parse(data.body)))
             },
             (error: Error) => {
                 console.dir(error)
@@ -190,13 +191,13 @@ const MenuEditPage: React.FC = () => {
                             <tr onFocus={handleFocus} key={window.atob(menu.id)} id={window.atob(menu.id)} tabIndex={menu.sort_order}>
                                 <td><input type="number" name="sort_order" defaultValue={menu.sort_order} onChange={handleBlur} className="number_field" /></td>
                                 <td>
-                                    <CategoryDropDown categories={categories.filter((category: Category) => category.parent_id == null)} handleChange={handleChange} column="category" value={menu.category} />
+                                    <CategoryDropDown categories={categories.filter((category: Category) => category.parentId == null)} handleChange={handleChange} column="category" value={menu.category} />
                                 </td>
                                 <td>
-                                    <CategoryDropDown categories={categories.filter((category: Category) => category.parent_id == menu.category)} handleChange={handleChange} column="sub_category" value={menu.sub_category} />
+                                    <CategoryDropDown categories={categories.filter((category: Category) => category.parentId == menu.category)} handleChange={handleChange} column="sub_category" value={menu.sub_category} />
                                 </td>
                                 <td>
-                                    <CategoryDropDown categories={categories.filter((category: Category) => category.parent_id == menu.sub_category)} handleChange={handleChange} column="region" value={menu.region} />
+                                    <CategoryDropDown categories={categories.filter((category: Category) => category.parentId == menu.sub_category)} handleChange={handleChange} column="region" value={menu.region} />
                                 </td>
                                 <td><input type="text" name="name" defaultValue={menu.name} onBlur={handleBlur} /></td>
                                 <td><input type="text" name="name_jpn" defaultValue={menu.name_jpn} onBlur={handleBlur} /></td>
