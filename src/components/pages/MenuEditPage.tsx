@@ -2,10 +2,9 @@
  * @author Yukitaka Maeda [yumaeda@gmail.com]
  */
 import * as React from 'react'
-import { Category } from '@yumaeda/sakaba-interface'
+import { Category, Menu } from '@yumaeda/sakaba-interface'
 import { v4 as uuidv4 } from 'uuid'
 import camelcaseKeys = require('camelcase-keys')
-import Menu from '../../interfaces/Menu'
 import CategoryDropDown from '../CategoryDropdown'
 import { idTokenKey, userNameKey } from '../../utils/LocalStorageKeys'
 import restaurantIdHash from '../../utils/RestaurantIdHash'
@@ -37,7 +36,7 @@ const MenuEditPage: React.FC = () => {
         .then(res => res.json())
         .then(
             (data) => {
-                setMenus(JSON.parse(data.body))
+                setMenus(camelcaseKeys(JSON.parse(data.body)))
             },
             (error: Error) => {
                 console.dir(error)
@@ -46,7 +45,7 @@ const MenuEditPage: React.FC = () => {
     }, [])
 
     const handleAddMenu = () => {
-        let emptyMenu: Menu = {
+        let emptyMenu = {
             id: uuidv4(),
             restaurant_id: restaurantId,
             sort_order: 0,
@@ -72,7 +71,7 @@ const MenuEditPage: React.FC = () => {
             .then(data => {
                 console.dir(data)
                 emptyMenu.id = window.btoa(emptyMenu.id)
-                setMenus([emptyMenu, ...menus])
+                setMenus([camelcaseKeys(emptyMenu), ...menus])
                 window.scroll(0, 0)
             })
     }
@@ -127,14 +126,14 @@ const MenuEditPage: React.FC = () => {
                     newMenu = {
                         ...newMenu,
                         category: Number(value),
-                        sub_category: 0,
+                        subCategory: 0,
                         region: 0
                     }
                 }
                 if (column == 'sub_category') {
                     newMenu = {
                         ...newMenu,
-                        sub_category: Number(value),
+                        subCategory: Number(value),
                         region: 0
                     }
                 }
@@ -188,21 +187,21 @@ const MenuEditPage: React.FC = () => {
                     <tbody>
                     {
                         menus?.map((menu: Menu) => (
-                            <tr onFocus={handleFocus} key={window.atob(menu.id)} id={window.atob(menu.id)} tabIndex={menu.sort_order}>
-                                <td><input type="number" name="sort_order" defaultValue={menu.sort_order} onChange={handleBlur} className="number_field" /></td>
+                            <tr onFocus={handleFocus} key={window.atob(menu.id)} id={window.atob(menu.id)} tabIndex={menu.sortOrder}>
+                                <td><input type="number" name="sort_order" defaultValue={menu.sortOrder} onChange={handleBlur} className="number_field" /></td>
                                 <td>
                                     <CategoryDropDown categories={categories.filter((category: Category) => category.parentId == null)} handleChange={handleChange} column="category" value={menu.category} />
                                 </td>
                                 <td>
-                                    <CategoryDropDown categories={categories.filter((category: Category) => category.parentId == menu.category)} handleChange={handleChange} column="sub_category" value={menu.sub_category} />
+                                    <CategoryDropDown categories={categories.filter((category: Category) => category.parentId == menu.category)} handleChange={handleChange} column="sub_category" value={menu.subCategory} />
                                 </td>
                                 <td>
-                                    <CategoryDropDown categories={categories.filter((category: Category) => category.parentId == menu.sub_category)} handleChange={handleChange} column="region" value={menu.region} />
+                                    <CategoryDropDown categories={categories.filter((category: Category) => category.parentId == menu.subCategory)} handleChange={handleChange} column="region" value={menu.region} />
                                 </td>
                                 <td><input type="text" name="name" defaultValue={menu.name} onBlur={handleBlur} /></td>
-                                <td><input type="text" name="name_jpn" defaultValue={menu.name_jpn} onBlur={handleBlur} /></td>
+                                <td><input type="text" name="name_jpn" defaultValue={menu.nameJpn} onBlur={handleBlur} /></td>
                                 <td><input type="number" name="price" defaultValue={menu.price} onBlur={handleBlur} className="number_field" /></td>
-                                <td><input type="number" name="is_min_price" defaultValue={menu.is_min_price} onBlur={handleBlur} className="number_field" /></td>
+                                <td><input type="number" name="is_min_price" defaultValue={menu.isMinPrice} onBlur={handleBlur} className="number_field" /></td>
                                 <td><input type="button" onClick={handleDeleteMenu} value="削除" /></td>
                             </tr>
                         ))
