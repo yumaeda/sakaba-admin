@@ -8,7 +8,7 @@
     "url": "git+https://github.com/yumaeda/sakaba-admin.git"
   },
   "scripts": {
-    "lint": "npx eslint --ext .tsx,.ts src/",
+    "lint": "npx eslint --ext .tsx,.ts src/ --fix",
     "build": "webpack --progress --profile",
     "start": "webpack serve"
   },
@@ -42,6 +42,7 @@
     "dotenv-webpack": "^7.0.3",
     "eslint": "^8.2.0",
     "eslint-config-airbnb": "^19.0.0",
+    "eslint-import-resolver-webpack": "^0.13.2",
     "eslint-plugin-import": "^2.25.3",
     "eslint-plugin-jsx-a11y": "^6.5.1",
     "eslint-plugin-react": "^7.27.0",

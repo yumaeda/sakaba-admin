@@ -20,10 +20,20 @@
         "@typescript-eslint"
     ],
     "rules": {
+        "no-console": 0,
+        "react/jsx-props-no-spreading": 0,
         "react/jsx-filename-extension": [2, {"extensions": [".js", ".jsx", ".ts", ".tsx"]}],
         "react/function-component-definition": 0,
+        "react/prop-types": 0,
         "import/extensions": [2, {"extensions": [".js", ".jsx", ".json", ".ts", ".tsx"]}],
         "comma-dangle": [2, "never"],
         "semi": ["error", "never", {"beforeStatementContinuationChars": "never"}]
+    },
+    "settings": {
+        "import/resolver": {
+            "webpack": {
+                "config": "webpack.config.js"
+            }
+        }
     }
 }
