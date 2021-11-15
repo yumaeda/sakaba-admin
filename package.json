@@ -8,6 +8,7 @@
     "url": "git+https://github.com/yumaeda/sakaba-admin.git"
   },
   "scripts": {
+    "lint": "npx eslint --ext .tsx,.ts src/",
     "build": "webpack --progress --profile",
     "start": "webpack serve"
   },
@@ -21,8 +22,8 @@
   "homepage": "https://github.com/yumaeda/sakaba-admin#readme",
   "dependencies": {
     "@yumaeda/sakaba-interface": "0.0.2",
-    "camelcase-keys": "^7.0.1",
     "amazon-cognito-identity-js": "^5.1.2",
+    "camelcase-keys": "^7.0.1",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
     "react-router-dom": "^5.3.0",
@@ -36,7 +37,15 @@
     "@types/react-router-dom": "^5.3.0",
     "@types/react-table": "^7.7.5",
     "@types/uuid": "^8.3.1",
+    "@typescript-eslint/eslint-plugin": "^5.3.1",
+    "@typescript-eslint/parser": "^5.3.1",
     "dotenv-webpack": "^7.0.3",
+    "eslint": "^8.2.0",
+    "eslint-config-airbnb": "^19.0.0",
+    "eslint-plugin-import": "^2.25.3",
+    "eslint-plugin-jsx-a11y": "^6.5.1",
+    "eslint-plugin-react": "^7.27.0",
+    "eslint-plugin-react-hooks": "^4.3.0",
     "ts-loader": "^9.2.6",
     "typescript": "^4.4.3",
     "webpack": "^5.55.1",
