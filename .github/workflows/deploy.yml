@@ -7,7 +7,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        node-version: [16.13.2]
+        node-version: [16.3.0]
     steps:
     - name: Configure AWS Credentials
       uses: aws-actions/configure-aws-credentials@v1
@@ -16,7 +16,7 @@ jobs:
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: ${{ secrets.AWS_REGION }}
     - name: Checkout
-      uses: actions/checkout@v2
+      uses: actions/checkout@v3
       with:
           ref: ${{ github.ref }}
     - name: Create .env
@@ -24,7 +24,7 @@ jobs:
         echo "USER_POOL_ID=${{ secrets.USER_POOL_ID }}" > "./.env"
         echo "CLIENT_ID=${{ secrets.CLIENT_ID }}" >> "./.env"
     - name: Use Node.js ${{ matrix.node-version }}
-      uses: actions/setup-node@v1
+      uses: actions/setup-node@v3
       with:
         node-version: ${{ matrix.node-version }}
     - name: Install
