@@ -7,7 +7,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        node-version: [16.3.0]
+        node-version: [18.3.0]
     steps:
     - name: Configure AWS Credentials
       uses: aws-actions/configure-aws-credentials@v1
