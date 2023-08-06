@@ -196,7 +196,7 @@ const MenuEditPage: React.FC = () => {
                           >
                             <td><input type="number" name="sort_order" defaultValue={menu.sortOrder} onChange={handleBlur} className="number_field" /></td>
                             <td>
-                              <CategoryDropDown categories={categories.filter((category: Category) => category.parentId == null)} handleChange={handleChange} column="category" value={menu.category} />
+                              <CategoryDropDown categories={categories.filter((category: Category) => category.parentId == 0)} handleChange={handleChange} column="category" value={menu.category} />
                             </td>
                             <td>
                               <CategoryDropDown categories={categories.filter((category: Category) => category.parentId === menu.category)} handleChange={handleChange} column="sub_category" value={menu.subCategory} />
