@@ -190,8 +190,8 @@ const MenuEditPage: React.FC = () => {
                         menus?.map((menu: Menu) => (
                           <tr
                             onFocus={handleFocus}
-                            key={window.atob(menu.id)}
-                            id={window.atob(menu.id)}
+                            key={menu.id}
+                            id={menu.id}
                             tabIndex={menu.sortOrder}
                           >
                             <td><input type="number" name="sort_order" defaultValue={menu.sortOrder} onChange={handleBlur} className="number_field" /></td>
