@@ -71,7 +71,6 @@ const MenuEditPage: React.FC = () => {
       .then((res) => res.json())
       .then((data) => {
         console.dir(data)
-        emptyMenu.id = window.btoa(emptyMenu.id)
         setMenus([camelcaseKeys(emptyMenu), ...menus])
         window.scroll(0, 0)
       })
