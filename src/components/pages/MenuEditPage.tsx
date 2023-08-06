@@ -15,28 +15,29 @@ const MenuEditPage: React.FC = () => {
   const [menuId, setMenuId] = React.useState<string>('')
   const [menuIndex, setMenuIndex] = React.useState<number>(0)
   const restaurantId = restaurantIdHash[localStorage.getItem(userNameKey) ?? '']
+  const apiUrl = 'https://api.tokyo-dinner.com'
 
   React.useEffect(() => {
-    fetch(`https://api.sakaba.link/categories?restaurant_id=${restaurantId}`, {
+    fetch(`${apiUrl}/categories/${restaurantId}`, {
       headers: {}
     })
       .then((res) => res.json())
       .then(
         (data) => {
-          setCategories(camelcaseKeys(JSON.parse(data.body)))
+          setCategories(camelcaseKeys(JSON.parse(JSON.stringify(data.body))))
         },
         (error: Error) => {
           console.dir(error)
         }
       )
 
-    fetch(`https://api.sakaba.link/menus?restaurant_id=${restaurantId}`, {
+    fetch(`${apiUrl}/menus/${restaurantId}`, {
       headers: {}
     })
       .then((res) => res.json())
       .then(
         (data) => {
-          setMenus(camelcaseKeys(JSON.parse(data.body)))
+          setMenus(camelcaseKeys(JSON.parse(JSON.stringify(data.body))))
         },
         (error: Error) => {
           console.dir(error)
