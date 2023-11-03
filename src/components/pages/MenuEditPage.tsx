@@ -16,6 +16,7 @@ const MenuEditPage: React.FC = () => {
   const [menuIndex, setMenuIndex] = React.useState<number>(0)
   const restaurantId = restaurantIdHash[localStorage.getItem(userNameKey) ?? '']
   const apiUrl = 'https://api.tokyo-dinner.com'
+  const adminApiUrl = 'https://dy1yzzmuwcx9h.cloudfront.net'
 
   React.useEffect(() => {
     fetch(`${apiUrl}/categories/${restaurantId}`, {
@@ -67,7 +68,7 @@ const MenuEditPage: React.FC = () => {
       },
       body: JSON.stringify(emptyMenu)
     }
-    fetch('https://api.sakaba.link/menu', postOptions)
+    fetch(`${adminApiUrl}/menu`, postOptions)
       .then((res) => res.json())
       .then((data) => {
         console.dir(data)
@@ -87,7 +88,7 @@ const MenuEditPage: React.FC = () => {
         id: menuId
       })
     }
-    fetch('https://api.sakaba.link/menu', deleteOptions)
+    fetch(`${adminApiUrl}/menu`, deleteOptions)
       .then((res) => res.json())
       .then((data) => {
         console.dir(data)
@@ -115,7 +116,7 @@ const MenuEditPage: React.FC = () => {
         value
       })
     }
-    fetch('https://api.sakaba.link/menu', postOptions)
+    fetch(`${adminApiUrl}/menu`, postOptions)
       .then((res) => res.json())
       .then((data) => {
         console.dir(data)
