@@ -57,7 +57,8 @@ const MenuEditPage: React.FC = () => {
       name: '',
       name_jpn: '',
       price: 0,
-      is_min_price: 0
+      is_min_price: 0,
+      is_hidden: 0
     }
 
     const postOptions = {
@@ -182,6 +183,7 @@ const MenuEditPage: React.FC = () => {
               <th>フリガナ</th>
               <th>金額</th>
               <th>最低金額</th>
+              <th>非表示</th>
               <th>オペレーション</th>
             </tr>
           </thead>
@@ -208,6 +210,7 @@ const MenuEditPage: React.FC = () => {
                             <td><input type="text" name="name_jpn" defaultValue={menu.nameJpn} onBlur={handleBlur} /></td>
                             <td><input type="number" name="price" defaultValue={menu.price} onBlur={handleBlur} className="number_field" /></td>
                             <td><input type="number" name="is_min_price" defaultValue={menu.isMinPrice} onBlur={handleBlur} className="number_field" /></td>
+                            <td><input type="number" name="is_hidden" defaultValue={menu.isHidden} onBlur={handleBlur} className="number_field" /></td>
                             <td><input type="button" onClick={handleDeleteMenu} value="削除" /></td>
                           </tr>
                         ))

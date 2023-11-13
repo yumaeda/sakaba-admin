@@ -21,7 +21,7 @@
   },
   "homepage": "https://github.com/yumaeda/sakaba-admin#readme",
   "dependencies": {
-    "@yumaeda/sakaba-interface": "0.0.2",
+    "@yumaeda/sakaba-interface": "1.2.0",
     "amazon-cognito-identity-js": "^5.1.2",
     "camelcase-keys": "^7.0.1",
     "react": "^17.0.2",
