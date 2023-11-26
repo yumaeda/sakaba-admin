@@ -15,7 +15,7 @@ const MenuEditPage: React.FC = () => {
   const [menuId, setMenuId] = React.useState<string>('')
   const [menuIndex, setMenuIndex] = React.useState<number>(0)
   const restaurantId = restaurantIdHash[localStorage.getItem(userNameKey) ?? '']
-  const apiUrl = 'https://api.tokyo-dinner.com'
+  const apiUrl = 'https://api.sakabas.com'
   const adminApiUrl = 'https://kns3wrtnza.execute-api.ap-northeast-1.amazonaws.com/v1'
 
   React.useEffect(() => {
